@@ -1,0 +1,21 @@
+name: Cloud App Build Check
+
+on: [push] # Triggers every time code is pushed to GitHub
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install Dependencies
+        run: pip install flask pymongo dnspython
+
+      - name: Run Syntax Check
+        run: python -m py_compile app.py
